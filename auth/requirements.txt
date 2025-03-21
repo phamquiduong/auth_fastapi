@@ -1,2 +1,5 @@
 fastapi[standard]
 uvicorn
+sqlmodel
+passlib[bcrypt]
+pyjwt
