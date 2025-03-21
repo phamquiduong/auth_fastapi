@@ -35,7 +35,7 @@
 
 > #### Features
 > - Register ✅
-> - View list
+> - List all users ✅
 > - View detail
 > - Update current user info
 > - Active email

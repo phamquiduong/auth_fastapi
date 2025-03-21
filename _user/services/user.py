@@ -22,3 +22,6 @@ class User:
         )
 
         return self.repository.create(user_create)
+
+    def get_all(self, offset: int, limit: int):
+        return self.repository.get_all(offset=offset, limit=limit)
