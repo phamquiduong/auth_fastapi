@@ -1,0 +1,13 @@
+# Python
+.venv
+__pycache__
+
+# SQLite
+db.sqlite3
+
+# IDE
+.idea
+.vscode
+
+# Environment variables
+.env
