@@ -1,22 +1,22 @@
 from pydantic import BaseModel, EmailStr
 
 
-class User(BaseModel):
+class UserSchema(BaseModel):
     id: int
     email: EmailStr
     password: str
 
 
-class Create(BaseModel):
+class UserCreateSchema(BaseModel):
     email: EmailStr
     hashed_password: str
 
 
-class Register(BaseModel):
+class UserRegisterSchema(BaseModel):
     email: EmailStr
     password: str
 
 
-class Response(BaseModel):
+class UserResponseSchema(BaseModel):
     id: int
     email: EmailStr
