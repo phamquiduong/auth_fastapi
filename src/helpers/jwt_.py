@@ -13,5 +13,9 @@ def create(data: dict | BaseModel, expires_delta: timedelta | None = None) -> st
         expire = datetime.now(timezone.utc) + expires_delta
         to_encode.update({"exp": expire})
 
-    encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+    encoded_jwt = jwt.encode(payload=to_encode, key=settings.SECRET_KEY, algorithm=settings.ALGORITHM)
     return encoded_jwt
+
+
+def decode(token: str) -> dict:
+    return jwt.decode(jwt=token, key=settings.SECRET_KEY, algorithms=[settings.ALGORITHM])

@@ -6,10 +6,7 @@ from routers.auth import auth_router
 from routers.user import user_router
 
 app = FastAPI(
-    title="User API",
-    openapi_url='/users/openapi.json',
-    docs_url='/users/docs',
-    redoc_url='/users/redoc',
+    title="FastAPI Authentication",
 )
 
 

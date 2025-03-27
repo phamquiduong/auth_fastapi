@@ -2,6 +2,7 @@ from fastapi import APIRouter, Body, Query
 from pydantic import EmailStr
 
 from dependencies.database import SessionDependency
+from dependencies.user import CurrentUserDependency
 from exceptions.user import UserAlreadyExistsException
 from helpers import bcrypt
 from models.user import UserManager
@@ -23,7 +24,7 @@ async def get_all_users(
 
 
 @user_router.post('/register')
-async def register(
+async def register_new_user(
     session: SessionDependency,
     email: EmailStr = Body(),
     password: str = Body(min_length=8)
@@ -39,3 +40,10 @@ async def register(
     user = user_manager.create(user_create)
 
     return UserResponse(**user.model_dump())
+
+
+@user_router.get('/me')
+async def get_current_user_info(
+    current_user: CurrentUserDependency
+) -> UserResponse:
+    return UserResponse(**current_user.model_dump())

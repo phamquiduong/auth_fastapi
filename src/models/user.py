@@ -18,6 +18,9 @@ class UserManager:
     def get_all(self, offset: int, limit: int) -> Sequence[Users]:
         return self.session.exec(select(Users).offset(offset).limit(limit)).all()
 
+    def get_by_id(self, user_id: int) -> Users | None:
+        return self.session.exec(select(Users).where(Users.id == user_id)).one_or_none()
+
     def get_by_email(self, email: str) -> Users | None:
         return self.session.exec(select(Users).where(Users.email == email)).one_or_none()
 

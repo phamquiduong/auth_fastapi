@@ -10,3 +10,30 @@ PasswordIncorrectException = APIException(
         'password': 'Incorrect password',
     }
 )
+
+TokenInvalidException = APIException(
+    status=status.HTTP_401_UNAUTHORIZED,
+    message='Could not validate credentials',
+    error_code='ERR-AUTH-401-001',
+    error_fields={
+        'WWW-Authenticate': 'Token Invalid',
+    }
+)
+
+TokenExpiredException = APIException(
+    status=status.HTTP_401_UNAUTHORIZED,
+    message='Could not validate credentials',
+    error_code='ERR-AUTH-401-002',
+    error_fields={
+        'WWW-Authenticate': 'Token Expired',
+    }
+)
+
+TokenTypeIncorrectException = APIException(
+    status=status.HTTP_401_UNAUTHORIZED,
+    message='Could not validate credentials',
+    error_code='ERR-AUTH-401-003',
+    error_fields={
+        'WWW-Authenticate': 'Token type incorrect',
+    }
+)
