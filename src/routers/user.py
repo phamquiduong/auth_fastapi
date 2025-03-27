@@ -1,10 +1,10 @@
-from fastapi import APIRouter, Body, Query
+from fastapi import APIRouter, Body, Path, Query
 from pydantic import EmailStr
 
 from dependencies.admin import AdminUserDependency
 from dependencies.database import SessionDependency
 from dependencies.user import CurrentUserDependency
-from exceptions.user import UserAlreadyExistsException
+from exceptions.user import UserAlreadyExistsException, UserDoestNotExistException
 from helpers import bcrypt
 from models.user import UserManager
 from schemas.user import UserCreateSchema, UserResponse
@@ -25,7 +25,7 @@ async def get_all_users(
     return [UserResponse(**user.model_dump()) for user in users]
 
 
-@user_router.post('/register')
+@user_router.post('')
 async def register_new_user(
     session: SessionDependency,
     email: EmailStr = Body(),
@@ -44,8 +44,23 @@ async def register_new_user(
     return UserResponse(**user.model_dump())
 
 
-@user_router.get('/me')
+@user_router.get('/profile')
 async def get_current_user_info(
     current_user: CurrentUserDependency
 ) -> UserResponse:
     return UserResponse(**current_user.model_dump())
+
+
+@user_router.get('/{user_id}')
+async def get_user_info(
+    session: SessionDependency,
+    _: AdminUserDependency,
+    user_id: int = Path(..., ge=1)
+) -> UserResponse:
+    user_manager = UserManager(session=session)
+    user = user_manager.get_by_id(user_id=user_id)
+
+    if not user:
+        raise UserDoestNotExistException
+
+    return UserResponse(**user.model_dump())

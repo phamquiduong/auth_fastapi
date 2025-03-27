@@ -8,7 +8,7 @@ from sqlmodel import Session
 from constants.token import TokenType
 from dependencies.database import SessionDependency
 from exceptions.auth import PasswordIncorrectException
-from exceptions.user import UserDoestNotExistException
+from exceptions.user import EmailDoestNotExistException
 from helpers import bcrypt, jwt_
 from models.user import UserManager, Users
 from schemas.login import LoginResponseSchema
@@ -23,7 +23,7 @@ def get_user(session: Session, email: str, password: str) -> Users:
     user = user_manager.get_by_email(email=email)
 
     if not user:
-        raise UserDoestNotExistException
+        raise EmailDoestNotExistException
 
     if not bcrypt.verify(plain_password=password, hashed_password=user.password):
         raise PasswordIncorrectException
