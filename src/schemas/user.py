@@ -1,9 +1,13 @@
 from pydantic import BaseModel, EmailStr
 
 
-class UserSchema(BaseModel):
+class UserBase(BaseModel):
     id: int
     email: EmailStr
+    role: str
+
+
+class UserSchema(UserBase):
     password: str
 
 
@@ -12,6 +16,5 @@ class UserCreateSchema(BaseModel):
     hashed_password: str
 
 
-class UserResponse(BaseModel):
-    id: int
-    email: EmailStr
+class UserResponse(UserBase):
+    ...

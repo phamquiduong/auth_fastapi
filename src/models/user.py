@@ -2,6 +2,7 @@ from typing import Sequence
 
 from sqlmodel import Field, Session, SQLModel, select
 
+from constants.role import Role
 from schemas.user import UserCreateSchema
 
 
@@ -9,6 +10,7 @@ class Users(SQLModel, table=True):
     id: int | None = Field(primary_key=True)
     email: str = Field(nullable=False, unique=True, index=True)
     password: str = Field(nullable=False)
+    role: str = Field(nullable=False, default=Role.GUEST)
 
 
 class UserManager:
