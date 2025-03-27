@@ -1,7 +1,8 @@
 from fastapi import status
 
-from exceptions import APIException
+from exceptions.base import APIException
 
+# 400
 PasswordIncorrectException = APIException(
     status=status.HTTP_400_BAD_REQUEST,
     message='Incorrect password',
@@ -11,6 +12,7 @@ PasswordIncorrectException = APIException(
     }
 )
 
+# 401
 TokenInvalidException = APIException(
     status=status.HTTP_401_UNAUTHORIZED,
     message='Could not validate credentials',
@@ -38,6 +40,7 @@ TokenTypeIncorrectException = APIException(
     }
 )
 
+# 403
 NotPremissionException = APIException(
     status=status.HTTP_403_FORBIDDEN,
     message='User not permission',

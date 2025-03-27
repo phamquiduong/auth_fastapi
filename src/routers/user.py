@@ -1,12 +1,10 @@
 from fastapi import APIRouter, Body, Path, Query
 from pydantic import EmailStr
 
-from dependencies.admin import AdminUserDependency
-from dependencies.database import SessionDependency
-from dependencies.user import CurrentUserDependency
-from exceptions.user import UserAlreadyExistsException, UserDoestNotExistException
+from dependencies import AdminUserDependency, CurrentUserDependency, SessionDependency
+from exceptions import UserAlreadyExistsException, UserDoestNotExistException
 from helpers import bcrypt
-from models.user import UserManager
+from models import UserManager
 from schemas.user import UserCreateSchema, UserResponse
 
 user_router = APIRouter(prefix='/users', tags=['User'])

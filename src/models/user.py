@@ -2,7 +2,7 @@ from typing import Sequence
 
 from sqlmodel import Field, Session, SQLModel, select
 
-from constants.role import Role
+from constants import Role
 from schemas.user import UserCreateSchema
 
 

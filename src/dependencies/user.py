@@ -3,12 +3,12 @@ from typing import Annotated
 from fastapi import Depends
 from jwt import ExpiredSignatureError, InvalidTokenError
 
-from constants.token import TokenType
+from constants import TokenType
 from dependencies.database import SessionDependency
-from exceptions.auth import TokenExpiredException, TokenInvalidException, TokenTypeIncorrectException
-from exceptions.user import UserDoestNotExistException
+from exceptions import (TokenExpiredException, TokenInvalidException, TokenTypeIncorrectException,
+                        UserDoestNotExistException)
 from helpers import jwt_
-from models.user import UserManager, Users
+from models import UserManager, Users
 from schemas.token import TokenSchema, oauth2_scheme
 
 

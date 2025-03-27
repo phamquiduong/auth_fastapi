@@ -5,12 +5,11 @@ from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import EmailStr
 from sqlmodel import Session
 
-from constants.token import TokenType
-from dependencies.database import SessionDependency
-from exceptions.auth import PasswordIncorrectException
-from exceptions.user import EmailDoestNotExistException
+from constants import TokenType
+from dependencies import SessionDependency
+from exceptions import EmailDoestNotExistException, PasswordIncorrectException
 from helpers import bcrypt, jwt_
-from models.user import UserManager, Users
+from models import UserManager, Users
 from schemas.login import LoginResponseSchema
 from schemas.token import FastAPITokenResponse, TokenSchema
 from settings import settings
