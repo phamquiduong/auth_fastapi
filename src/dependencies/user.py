@@ -9,13 +9,13 @@ from exceptions.auth import TokenExpiredException, TokenInvalidException, TokenT
 from exceptions.user import UserDoestNotExistException
 from helpers import jwt_
 from models.user import UserManager, Users
-from schemas.token import AccessTokenSchema, oauth2_scheme
+from schemas.token import TokenSchema, oauth2_scheme
 
 
 async def get_current_user(session: SessionDependency, token: Annotated[str, Depends(oauth2_scheme)]):
     try:
         payload = jwt_.decode(token=token)
-        token_data = AccessTokenSchema(**payload)
+        token_data = TokenSchema(**payload)
     except ExpiredSignatureError as expired_exc:
         raise TokenExpiredException from expired_exc
     except InvalidTokenError as invalid_exc:

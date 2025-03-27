@@ -11,11 +11,11 @@ from schemas.user import UserCreateSchema, UserResponse
 user_router = APIRouter(prefix='/users', tags=['User'])
 
 
-@user_router.get('/')
+@user_router.get('')
 async def get_all_users(
     session: SessionDependency,
     offset: int = Query(0, ge=0),
-    limit: int = Query(10, le=10),
+    limit: int = Query(10, le=100),
 ) -> list[UserResponse]:
     user_manager = UserManager(session=session)
 

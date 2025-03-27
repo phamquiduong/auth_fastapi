@@ -3,11 +3,11 @@ from typing import Annotated
 from fastapi import Depends
 from sqlmodel import Session
 
-from settings.database import engine
+from settings.database import ENGINE
 
 
 def get_session():
-    with Session(engine) as session:
+    with Session(ENGINE) as session:
         yield session
         session.commit()
 
