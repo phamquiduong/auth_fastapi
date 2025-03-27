@@ -12,11 +12,6 @@ class UserCreateSchema(BaseModel):
     hashed_password: str
 
 
-class UserRegisterSchema(BaseModel):
-    email: EmailStr
-    password: str
-
-
-class UserResponseSchema(BaseModel):
+class UserResponse(BaseModel):
     id: int
     email: EmailStr

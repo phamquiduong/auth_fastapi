@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 from exceptions import APIException
+from routers.auth import auth_router
 from routers.user import user_router
 
 app = FastAPI(
@@ -23,3 +24,4 @@ async def unicorn_exception_handler(request: Request, api_exc: APIException):
 
 # Include routers
 app.include_router(user_router)
+app.include_router(auth_router)
