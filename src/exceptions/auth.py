@@ -37,3 +37,12 @@ TokenTypeIncorrectException = APIException(
         'WWW-Authenticate': 'Token type incorrect',
     }
 )
+
+NotPremissionException = APIException(
+    status=status.HTTP_403_FORBIDDEN,
+    message='User not permission',
+    error_code='ERR-AUTH-403-001',
+    error_fields={
+        'WWW-Authenticate': 'User not permission',
+    }
+)

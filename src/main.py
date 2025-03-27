@@ -12,7 +12,7 @@ app = FastAPI(
 
 # Exception handler
 @app.exception_handler(APIException)
-async def unicorn_exception_handler(request: Request, api_exc: APIException):
+async def unicorn_exception_handler(_: Request, api_exc: APIException):
     return JSONResponse(
         status_code=api_exc.status,
         content=api_exc.to_dict(),

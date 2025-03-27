@@ -32,7 +32,7 @@ def get_user(session: Session, email: str, password: str) -> Users:
 
 
 @auth_router.post('/login')
-def authenticate_user(
+async def authenticate_user(
     session: SessionDependency,
     email: EmailStr = Body(),
     password: str = Body(min_length=8)

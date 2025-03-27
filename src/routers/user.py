@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Body, Query
 from pydantic import EmailStr
 
+from dependencies.admin import AdminUserDependency
 from dependencies.database import SessionDependency
 from dependencies.user import CurrentUserDependency
 from exceptions.user import UserAlreadyExistsException
@@ -14,6 +15,7 @@ user_router = APIRouter(prefix='/users', tags=['User'])
 @user_router.get('')
 async def get_all_users(
     session: SessionDependency,
+    _: AdminUserDependency,
     offset: int = Query(0, ge=0),
     limit: int = Query(10, le=100),
 ) -> list[UserResponse]:
