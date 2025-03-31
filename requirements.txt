@@ -1,0 +1,14 @@
+# Server
+uvicorn==0.34.0
+
+# FastAPI
+fastapi[standard]==0.115.12
+
+# SQL ORM
+sqlmodel
+
+# Password encrypt
+passlib[bcrypt]==1.7.4
+
+# Token
+pyjwt==2.10.1
