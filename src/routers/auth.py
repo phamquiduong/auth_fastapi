@@ -8,6 +8,7 @@ from sqlmodel import Session
 from constants import TokenType
 from dependencies import SessionDependency
 from exceptions import EmailDoestNotExistException, PasswordIncorrectException
+from exceptions.apis.auth import TokenTypeIncorrectException
 from helpers import bcrypt, jwt_
 from models import UserManager, Users
 from schemas.login import LoginResponseSchema
@@ -68,4 +69,24 @@ async def login_for_access_token(
     return FastAPITokenResponse(
         access_token=jwt_.create(data=access_token_data, expires_delta=settings.ACCESS_TOKEN_EXP),
         token_type="bearer"
+    )
+
+
+@auth_router.post('/refresh')
+async def renew_auth_token(
+    refresh_token: str = Body()
+) -> LoginResponseSchema:
+    token_data = jwt_.get_token_data(token=refresh_token)
+
+    if token_data.token_type != TokenType.REFRESH:
+        raise TokenTypeIncorrectException
+
+    access_token_data = TokenSchema(
+        token_type=TokenType.ACCESS,
+        user_id=token_data.user_id,
+    )
+
+    return LoginResponseSchema(
+        access_token=jwt_.create(data=access_token_data, expires_delta=settings.ACCESS_TOKEN_EXP),
+        refresh_token=refresh_token,    # Will use rotation token later
     )

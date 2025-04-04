@@ -1,25 +1,17 @@
 from typing import Annotated
 
 from fastapi import Depends
-from jwt import ExpiredSignatureError, InvalidTokenError
 
 from constants import TokenType
 from dependencies.database import SessionDependency
-from exceptions import (TokenExpiredException, TokenInvalidException, TokenTypeIncorrectException,
-                        UserDoestNotExistException)
+from exceptions import TokenTypeIncorrectException, UserDoestNotExistException
 from helpers import jwt_
 from models import UserManager, Users
-from schemas.token import TokenSchema, oauth2_scheme
+from schemas.token import oauth2_scheme
 
 
 async def get_current_user(session: SessionDependency, token: Annotated[str, Depends(oauth2_scheme)]):
-    try:
-        payload = jwt_.decode(token=token)
-        token_data = TokenSchema(**payload)
-    except ExpiredSignatureError as expired_exc:
-        raise TokenExpiredException from expired_exc
-    except InvalidTokenError as invalid_exc:
-        raise TokenInvalidException from invalid_exc
+    token_data = jwt_.get_token_data(token=token)
 
     if token_data.token_type != TokenType.ACCESS:
         raise TokenTypeIncorrectException
