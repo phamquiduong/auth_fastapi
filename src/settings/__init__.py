@@ -11,5 +11,7 @@ class Settings(BaseModel):
     ACCESS_TOKEN_EXP: timedelta = timedelta(minutes=5)
     REFRESH_TOKEN_EXP: timedelta = timedelta(days=60)
 
+    ORIGINS: list[str] = ['*']
+
 
 settings = Settings()
