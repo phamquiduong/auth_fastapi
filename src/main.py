@@ -1,9 +1,9 @@
-from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from exceptions.handler import handler_exception
+from fastapi import FastAPI
 from routers import auth_router, user_router
-from settings import Settings
+from settings import settings
 
 app = FastAPI(
     title="FastAPI Authentication",
@@ -11,7 +11,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=Settings.ORIGINS,
+    allow_origins=settings.ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
